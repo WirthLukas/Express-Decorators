@@ -1,0 +1,11 @@
+{
+    "ext": "ts",
+    "ignore": [
+        ".git",
+        "node_modules",
+        ".idea",
+        "docs",
+        ".vscode"
+    ],
+    "exec": "npm run compile & npm run start"
+}
