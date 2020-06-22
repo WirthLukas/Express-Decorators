@@ -45,7 +45,7 @@ export class EndpointDef {
                 }
 
                 try {
-                    const result = instance[def.methodName](req, res);
+                    let result = instance[def.methodName](req, res);
 
                     if (result === undefined)
                         res.status(200).send({ value: 'ok' });

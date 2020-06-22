@@ -6,20 +6,20 @@ import { Ok, NotFound } from './models';
 @Endpoint('test')
 export class TestEndpoint {
 
-    @InjectRouter()
+    // @InjectRouter()
     public router: Router | undefined;
 
     public text: string = "Hello";
 
     @Get('/')
-    getAll(req: Request, res: Response) {
+    getAll() {
         console.log(this.text);
         return new Ok(this.text);
     }
 
     @Get('/spec')
     @Get('/two')
-    getSpec(req: Request, res: Response) {
+    getSpec() {
         console.log('spec');
         return new Ok('specific');
     }
@@ -38,11 +38,11 @@ export class TestEndpoint {
     }
 
     @Get('/:id')
-    getById(req: Request, res: Response) {
-        return new NotFound('not found');
+    async getById(req: Request, res: Response) {
+        return new Ok("1");
     }
 
-    @Post('/')
+    // @Post('/')
     add(req: Request, res: Response) {
         return new Ok(req.body);
     }
