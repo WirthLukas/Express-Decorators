@@ -4,7 +4,7 @@ import { JsonResponse } from '../../models';
 
 export interface RouteDefinition {
     path: string;
-    method: 'get';
+    method: 'get' | 'post' | 'put' | 'delete';
     methodName: string;
 }
 

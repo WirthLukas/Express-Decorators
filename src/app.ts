@@ -6,6 +6,8 @@ import { check } from 'express-validator';
 const app: Application = express();
 const t = new TestEndpoint();
 
+app.use(express.json());
+
 EndpointService.for(TestEndpoint.name).createEndpoint(t, app);
 
 app.get('/', (req, res) => {

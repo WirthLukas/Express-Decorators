@@ -19,6 +19,36 @@ export const Get = (path: string): MethodDecorator => {
     };
 }
 
+export const Post = (path: string): MethodDecorator => {
+    return (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
+        EndpointService.for(target.constructor.name).addRouteDefinition({
+            method: 'post',
+            path: path,
+            methodName: key as string
+        });
+    };
+}
+
+export const Put = (path: string): MethodDecorator => {
+    return (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
+        EndpointService.for(target.constructor.name).addRouteDefinition({
+            method: 'put',
+            path: path,
+            methodName: key as string
+        });
+    };
+}
+
+export const Delete = (path: string): MethodDecorator => {
+    return (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
+        EndpointService.for(target.constructor.name).addRouteDefinition({
+            method: 'delete',
+            path: path,
+            methodName: key as string
+        });
+    };
+}
+
 export const InjectRouter = (): PropertyDecorator => {
     return (target: Object, key: string | symbol) => {
         EndpointService.for(target.constructor.name).routeInjectorProperty = key as string;

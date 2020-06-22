@@ -1,4 +1,4 @@
-import { Endpoint, Get, InjectRouter, Validate } from './decorators/express/routing';
+import { Endpoint, Get, InjectRouter, Validate, Post } from './decorators/express/routing';
 import { Request, Response, Router } from 'express';
 import { query } from 'express-validator';
 import { Ok, NotFound } from './models';
@@ -40,5 +40,10 @@ export class TestEndpoint {
     @Get('/:id')
     getById(req: Request, res: Response) {
         return new NotFound('not found');
+    }
+
+    @Post('/')
+    add(req: Request, res: Response) {
+        return new Ok(req.body);
     }
 }
