@@ -1,16 +1,17 @@
-import { EndpointService, RouterService } from './services';
+import { EndpointService } from './services';
+import { ValidationChain } from 'express-validator';
 
 export const Endpoint = (path: string, prefix: string | string[] = 'api') => {
     return (target: Function) => {
         // if prefix is of type array, join the value, otherwise it should be of type string 
         let finalPrefix: string = prefix instanceof Array ? prefix.join('/') : prefix;
-        EndpointService.addEndpointDefinition(target.name, `/${finalPrefix}/${path}`);
+        EndpointService.for(target.name).endpointPath = `/${finalPrefix}/${path}`;
     }
 }
 
 export const Get = (path: string): MethodDecorator => {
     return (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
-        EndpointService.addRouteDefinition(target.constructor.name, {
+        EndpointService.for(target.constructor.name).addRouteDefinition({
             method: 'get',
             path: path,
             methodName: key as string
@@ -20,6 +21,12 @@ export const Get = (path: string): MethodDecorator => {
 
 export const InjectRouter = (): PropertyDecorator => {
     return (target: Object, key: string | symbol) => {
-        EndpointService.addRouterInjector(target.constructor.name, key as string);
+        EndpointService.for(target.constructor.name).routeInjectorProperty = key as string;
+    };
+}
+
+export const Validate = (validation: ValidationChain): MethodDecorator => {
+    return (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
+        EndpointService.for(target.constructor.name).addValidationFor(key as string, validation);
     };
 }
