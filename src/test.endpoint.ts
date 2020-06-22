@@ -1,6 +1,7 @@
 import { Endpoint, Get, InjectRouter, Validate } from './decorators/express/routing';
 import { Request, Response, Router } from 'express';
 import { query } from 'express-validator';
+import { Ok, NotFound } from './models';
 
 @Endpoint('test')
 export class TestEndpoint {
@@ -13,14 +14,14 @@ export class TestEndpoint {
     @Get('/')
     getAll(req: Request, res: Response) {
         console.log(this.text);
-        res.status(200).send(this.text);
+        return new Ok(this.text);
     }
 
     @Get('/spec')
     @Get('/two')
     getSpec(req: Request, res: Response) {
         console.log('spec');
-        res.status(200).send('specific');
+        return new Ok('specific');
     }
 
     @Get('/limited')
@@ -30,9 +31,14 @@ export class TestEndpoint {
         const result: number[] = [];
         const limit = parseInt(req.query.limit as string);
 
-        for (let i = 0; i <= limit; i++ )
+        for (let i = 0; i < limit; i++ )
             result.push(Math.random() * 1000);
 
-        res.status(200).send({ result: result });
+        return new Ok({ result: result });
+    }
+
+    @Get('/:id')
+    getById(req: Request, res: Response) {
+        return new NotFound('not found');
     }
 }

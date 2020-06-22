@@ -1,5 +1,6 @@
 import { Router, Application, Request, Response } from 'express';
 import { ValidationChain, Result, ValidationError, validationResult } from "express-validator";
+import { JsonResponse } from '../../models';
 
 export interface RouteDefinition {
     path: string;
@@ -43,7 +44,18 @@ export class EndpointDef {
                     return res.status(400).json({ errors: error.array() });
                 }
 
-                instance[def.methodName](req, res);
+                try {
+                    const result = instance[def.methodName](req, res);
+
+                    if (result === undefined)
+                        res.status(200).send({ value: 'ok' });
+
+                    if (result instanceof JsonResponse) {
+                        res.status(result.statusCode).send(result.value);
+                    }
+                } catch (err) {
+                    res.status(500).send({ msg: 'something went wrong' });
+                }
             });
         });
 
