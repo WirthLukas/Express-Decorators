@@ -82,32 +82,21 @@ export const createEndpoint = (instance: any, app: Application) => {
         let validationChains = getValidationMetadata(instance.constructor, def.methodName);
         let middlewares = getMiddlewareMetadata(instance.constructor, def.methodName);
 
-        router[def.method](def.path, validationChains, middlewares, async (req: Request, res: Response) => {
+        router[def.method](def.path, validationChains, middlewares, (req: Request, res: Response) => {
             const error: Result<ValidationError> = validationResult(req);
 
             if (!error.isEmpty())
                 return res.status(StatusCode.BadRequest).json({ errors: error.array() });
 
-            try {
-                let result: any;
-                // let type = Reflect.getMetadata('design:returntype', instance, def.methodName);
-
-                // if (type instanceof Promise) {
-                // if (type.name === Promise.name) {
-                    // result = await instance[def.methodName](req, res);
-                // } else {
-                    result = instance[def.methodName](req, res);
-                // }
-
-                // if (result === undefined)
-                //     res.status(200).send({ value: 'ok' });
-
-                if (result instanceof JsonResponse) {
-                    res.status(result.statusCode).send(result.value);
-                }
-            } catch (err) {
-                res.status(500).send({ msg: `something went wrong!`, err });
-            }
+            Promise.resolve(instance[def.methodName](req, res))
+                .then(result => {
+                    if (result instanceof JsonResponse) {
+                        res.status(result.statusCode).send(result.value);
+                    }
+                })
+                .catch(err => {
+                    res.status(500).send({ msg: `something went wrong!`, err: err.toString() });
+                });
         });
     });
 

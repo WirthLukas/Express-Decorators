@@ -45,10 +45,11 @@ export class TestEndpoint {
         return new Ok({ result: result });
     }
 
-    // @Get('/:id')
-    // async getById(req: Request, res: Response) {
-    //     return new Ok("1");
-    // }
+    @Get('/:id')
+    async getById(req: Request, res: Response) {
+        // throw new Error('oh no, an exception');
+        return new Ok("1");
+    }
 
     @Post('/')
     add(req: Request, res: Response) {
