@@ -1,6 +1,7 @@
+import 'reflect-metadata';
 import { TestEndpoint } from './test.endpoint';
 import express, { Application } from 'express';
-import { createEndpoint } from './express-decorators/decorators/routing';
+import { createEndpoint } from './express-decorators/decorators';
 
 const app: Application = express();
 const t = new TestEndpoint();
