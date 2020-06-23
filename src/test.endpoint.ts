@@ -1,17 +1,21 @@
-import { Endpoint, Get, InjectRouter, Validate, Post } from './decorators/express/routing';
-import { Request, Response, Router } from 'express';
-import { query } from 'express-validator';
-import { Ok, NotFound } from './models';
+import { Router, Request, Response } from "express";
+import { query } from "express-validator";
+import { Endpoint, Get, Validate, InjectRouter, Post, Middleware } from "./express-decorators/decorators/routing";
+import { Ok } from "./express-decorators/models";
 
 @Endpoint('test')
 export class TestEndpoint {
 
-    // @InjectRouter()
+    @InjectRouter()
     public router: Router | undefined;
 
     public text: string = "Hello";
 
     @Get('/')
+    @Middleware((req, res, next) => {
+        console.log('hey ho, a new middleware arived :D');
+        next();
+    })
     getAll() {
         console.log(this.text);
         return new Ok(this.text);
@@ -19,6 +23,10 @@ export class TestEndpoint {
 
     @Get('/spec')
     @Get('/two')
+    @Middleware((req, res, next) => {
+        console.log('hey ho, a new middleware arived :D');
+        next();
+    })
     getSpec() {
         console.log('spec');
         return new Ok('specific');
@@ -37,12 +45,12 @@ export class TestEndpoint {
         return new Ok({ result: result });
     }
 
-    @Get('/:id')
-    async getById(req: Request, res: Response) {
-        return new Ok("1");
-    }
+    // @Get('/:id')
+    // async getById(req: Request, res: Response) {
+    //     return new Ok("1");
+    // }
 
-    // @Post('/')
+    @Post('/')
     add(req: Request, res: Response) {
         return new Ok(req.body);
     }
