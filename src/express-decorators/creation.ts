@@ -1,9 +1,9 @@
 import { Router, Application, Request, Response } from "express";
-import { getRouteMetadata, getValidationMetadata, getMiddlewareMetadata } from "./reflect-helper";
+import { getRouteMetadata, getValidationMetadata, getMiddlewareMetadata } from "./decorators/reflect-helper";
 import { Result, ValidationError, validationResult } from "express-validator";
-import { StatusCode, JsonResponse } from "../models";
-import { endpointPathKey } from "./routing";
-import { injectRouterKey } from "./other";
+import { StatusCode, JsonResponse } from "./models";
+import { endpointPathKey } from "./decorators/routing";
+import { injectRouterKey } from "./decorators/other";
 
 export const createEndpoint = (instance: any, app: Application) => {
     const router = Router();
