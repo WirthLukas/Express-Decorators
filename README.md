@@ -84,6 +84,10 @@ app.listen(3030, () => {
 
 tbd.
 
+## Resources
+
+This [article](https://nehalist.io/routing-with-typescript-decorators/) and this [repository](https://github.com/sjmeverett/express-decorators) helped me a lot to finish this project.
+
 ## Contribute
 
 Feel free to start an issue or offer a pull request :D.
