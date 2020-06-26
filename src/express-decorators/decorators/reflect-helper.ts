@@ -38,9 +38,9 @@ export const getValidationMetadata = (target: Object, methodName: string): Valid
     return Reflect.getMetadata(validationsKey, target, methodName) as ValidationChain[];
 }
 
-export const addValidationFor = (methodName: string, target: Object, validation: ValidationChain) => {
-    const validations: ValidationChain[] = getValidationMetadata(target, methodName);
-    validations.push(validation);
+export const addValidationsFor = (methodName: string, target: Object, validations: ValidationChain[]) => {
+    const metaValidations: ValidationChain[] = getValidationMetadata(target, methodName);
+    validations.forEach(validation => metaValidations.push(validation));
 }
 
 export const getMiddlewareMetadata = (target: Object, methodName: string): Middleware[] => {

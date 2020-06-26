@@ -18,7 +18,7 @@ export class TestEndpoint {
     })
     getAll() {
         console.log(this.text);
-        return new Ok(this.text);
+        return Ok(this.text);
     }
 
     @Get('/spec')
@@ -29,7 +29,7 @@ export class TestEndpoint {
     })
     getSpec() {
         console.log('spec');
-        return new Ok('specific');
+        return Ok('specific');
     }
 
     @Get('/limited')
@@ -42,17 +42,17 @@ export class TestEndpoint {
         for (let i = 0; i < limit; i++ )
             result.push(Math.random() * 1000);
 
-        return new Ok({ result: result });
+        return Ok({ result: result });
     }
 
     @Get('/:id')
     async getById(req: Request, res: Response) {
         // throw new Error('oh no, an exception');
-        return new Ok("1");
+        return Ok("1");
     }
 
     @Post('/')
     add(req: Request, res: Response) {
-        return new Ok(req.body);
+        return Ok(req.body);
     }
 }

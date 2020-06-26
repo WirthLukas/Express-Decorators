@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { addMiddlewareFor, addValidationFor } from "./reflect-helper";
+import { addMiddlewareFor, addValidationsFor } from "./reflect-helper";
 import { ValidationChain } from "express-validator";
 
 export const injectRouterKey = Symbol('injectRouterKey');
@@ -16,8 +16,12 @@ export const InjectRouter = (): PropertyDecorator => {
     };
 }
 
-export const Validate = (validation: ValidationChain): MethodDecorator => {
+export const Validate = (validation: ValidationChain | ValidationChain[]): MethodDecorator => {
     return (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
-        addValidationFor(key as string, target.constructor, validation);
+        const toStore = validation instanceof Array
+            ? validation
+            : [ validation ];
+        
+        addValidationsFor(key as string, target.constructor, toStore);
     };
 }
