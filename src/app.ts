@@ -39,7 +39,7 @@ const main = async () => {
     endpoints.forEach(t => createEndpoint(t, app));
     const doc: string = createDocHtml(endpoints);
 
-    await writeFileAsync(`${__dirname}\\..\\public\\v1.html`, doc);
+    // await writeFileAsync(`${__dirname}\\..\\public\\v1.html`, doc);
 
     app.get('/', (req, res) => {
         res.status(200).send('Welcome!');

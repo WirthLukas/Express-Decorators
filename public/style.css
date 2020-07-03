@@ -1,3 +1,7 @@
+/*******************************************
+*           General                    *
+********************************************/
+
 body {
     display: flex;
     justify-content: center;
@@ -8,6 +12,24 @@ main {
     width: 70vw;
 }
 
+/*******************************************
+*           Collapsible                    *
+********************************************/
+
+.collapsible {
+    cursor: pointer;
+}
+
+.content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+
+/*******************************************
+*           Endpoint                       *
+********************************************/
+
 .endpoint-def {
     border: 2px solid lightgray;
     border-radius: 10px;
@@ -16,9 +38,17 @@ main {
     box-shadow: 0 4px 10px 0 rgba(0,0,0,0.4);
 }
 
-.hide section {
-    display: none;
+.endpoint-header {
+    padding: 1.5em 0;
 }
+
+.endpoint-header h1 {
+    margin: 0;
+}
+
+/*******************************************
+*           Routes                         *
+********************************************/
 
 .get {
     background-color: rgba(100, 255, 28, 0.555);
