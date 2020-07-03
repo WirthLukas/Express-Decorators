@@ -1,9 +1,8 @@
 import { Router, Application, Request, Response } from "express";
-import { getRouteMetadata, getValidationMetadata, getMiddlewareMetadata } from "./decorators/reflect-helper";
+import { getRouteMetadata, getValidationMetadata, getMiddlewareMetadata, RouteDefinition } from './decorators/reflect-helper';
 import { Result, ValidationError, validationResult } from "express-validator";
 import { StatusCode, JsonResponse } from "./models";
-import { endpointPathKey } from "./decorators/routing";
-import { injectRouterKey } from "./decorators/other";
+import { getDescriptionMetadata, injectRouterKey, endpointPathKey } from "./decorators";
 
 export const createEndpoint = (instance: any, app: Application) => {
     const router = Router();
@@ -47,4 +46,31 @@ const injectRouterIfNeccessary = (router: Router, instance: any) => {
         const injectRouterProperty = Reflect.getMetadata(injectRouterKey, instance.constructor);
         instance[injectRouterProperty] = router;
     }
+}
+
+export const createDocsFor = (instance: any): string => {
+    let result: string[] = ['<article class="endpoint-def">'];
+    const endpointPath = Reflect.getMetadata(endpointPathKey, instance.constructor) as string;
+
+    if (!endpointPath)
+        return '';
+
+    result.push(`<h1>${endpointPath}</h1>`);
+
+    getRouteMetadata(instance.constructor).forEach((def: RouteDefinition) => {
+        result.push(`
+        <section class="${def.method} route">
+            <div>
+                <h2>${def.method}</h2>
+            </div>
+            <div>
+                <p>${def.path}</p>
+                <p>${getDescriptionMetadata(instance.constructor, def.methodName)}</p>
+            </div>
+        </section>
+        `);
+    });
+
+    result.push('</article>');
+    return result.join('\n');
 }
