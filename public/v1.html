@@ -8,11 +8,11 @@
     <body>
         <main>
             <article class="endpoint-def">
-                <div id="e1" class="endpoint-header collapsible">
+                <div class="endpoint-header collapsible">
                     <h1>/api/test</h1>
                 </div>
 
-                <div class="content">
+                <div class="collapsible-content">
                     <section class="endpoint-desc">
                         <p>No description</p>
                     </section>
@@ -21,7 +21,7 @@
                             <h2>get</h2>
                         </div>
                         <div>
-                            <p>/</p>
+                            <p class="code">/</p>
                             <p>No description</p>
                         </div>
                     </section>
@@ -30,7 +30,7 @@
                             <h2>get</h2>
                         </div>
                         <div>
-                            <p>/two</p>
+                            <p class="code">/two</p>
                             <p>No description</p>
                         </div>
                     </section>
@@ -39,7 +39,7 @@
                             <h2>get</h2>
                         </div>
                         <div>
-                            <p>/spec</p>
+                            <p class="code">/spec</p>
                             <p>No description</p>
                         </div>
                     </section>
@@ -48,7 +48,7 @@
                             <h2>get</h2>
                         </div>
                         <div>
-                            <p>/limited</p>
+                            <p class="code">/limited</p>
                             <p>No description</p>
                         </div>
                     </section>
@@ -57,7 +57,7 @@
                             <h2>get</h2>
                         </div>
                         <div>
-                            <p>/:id</p>
+                            <p class="code">/:id</p>
                             <p>No description</p>
                         </div>
                     </section>
@@ -66,25 +66,28 @@
                             <h2>post</h2>
                         </div>
                         <div>
-                            <p>/</p>
+                            <p class="code">/</p>
                             <p>No description</p>
                         </div>
                     </section>
                 </div>    
             </article>
-            <article id="e2" onclick="onEndpointClicked('e2')" class="endpoint-def hide">
-            <h1>/api/greet</h1>
-
+            <article class="endpoint-def">
+                <div class="endpoint-header collapsible">
+                    <h1>/api/greet</h1>
+                </div>
+                
+                <div class="collapsible-content">
                     <section class="get route">
                         <div>
                             <h2>get</h2>
                         </div>
                         <div>
-                            <p>/</p>
+                            <p class="code">/</p>
                             <p>Returns a polite greeting</p>
                         </div>
                     </section>
-                    
+                </div>
             </article>
         </main>
 
