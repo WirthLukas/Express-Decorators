@@ -1,51 +1,42 @@
-import { addRouteDefinition } from './reflect-helper';
-
-export const endpointPathKey = Symbol('endpointPathKey');
+import { EndpointMeta, getEndpointMeta, getOrCreateRouteAccess, RouteDefinition, HttpMethod } from '../meta';
 
 export const Endpoint = (path: string, prefix: string | string[] = 'api') => {
     return (target: Function) => {
         // if prefix is of type array, join the value, otherwise it should be of type string 
-        let finalPrefix: string = prefix instanceof Array ? prefix.join('/') : prefix;
-        Reflect.defineMetadata(endpointPathKey, `/${finalPrefix}/${path}`, target);
+        const finalPrefix: string = prefix instanceof Array ? prefix.join('/') : prefix;
+        const endpointMeta: EndpointMeta = getEndpointMeta(target);
+        endpointMeta.path = `/${finalPrefix}/${path}`;
     }
+}
+
+const route = (method: HttpMethod, path: string, target: Object, methodName: string) => {
+    const endpointMeta: EndpointMeta = getEndpointMeta(target.constructor);
+    const route: RouteDefinition = getOrCreateRouteAccess(endpointMeta, methodName);
+
+    route.path = path;
+    route.method = method;
 }
 
 export const Get = (path: string): MethodDecorator => {
     return (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
-        addRouteDefinition({
-            method: 'get',
-            path: path,
-            methodName: key as string
-        }, target.constructor);
+        route('get', path, target, key as string);
     };
 }
 
 export const Post = (path: string): MethodDecorator => {
     return (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
-        addRouteDefinition({
-            method: 'post',
-            path: path,
-            methodName: key as string
-        }, target.constructor);
+        route('post', path, target, key as string);
     };
 }
 
 export const Put = (path: string): MethodDecorator => {
     return (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
-        addRouteDefinition({
-            method: 'put',
-            path: path,
-            methodName: key as string
-        }, target.constructor);
+        route('put', path, target, key as string);
     };
 }
 
 export const Delete = (path: string): MethodDecorator => {
     return (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
-        addRouteDefinition({
-            method: 'delete',
-            path: path,
-            methodName: key as string
-        }, target.constructor);
+        route('delete', path, target, key as string)
     };
 }

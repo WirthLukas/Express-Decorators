@@ -1,12 +1,19 @@
 import { RequestHandler } from "express";
-import { addMiddlewareFor, addValidationsFor } from "./reflect-helper";
 import { ValidationChain } from "express-validator";
+import { EndpointMeta, getEndpointMeta, getOrCreateRouteAccess } from '../meta';
 
 export const injectRouterKey = Symbol('injectRouterKey');
 
 export const Middleware = (middleware: RequestHandler): MethodDecorator => {
     return (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
-        addMiddlewareFor(key as string, target.constructor, middleware);
+        const endpointMeta: EndpointMeta = getEndpointMeta(target.constructor);
+        const route = getOrCreateRouteAccess(endpointMeta, key as string);
+
+        if (!route.middleware) {
+            route.middleware = [ middleware ];
+        } else {
+            route.middleware?.push(middleware);
+        }
     };
 }
 
@@ -22,6 +29,13 @@ export const Validate = (validation: ValidationChain | ValidationChain[]): Metho
             ? validation
             : [ validation ];
         
-        addValidationsFor(key as string, target.constructor, toStore);
+        const endpointMeta: EndpointMeta = getEndpointMeta(target.constructor);
+        const route = getOrCreateRouteAccess(endpointMeta, key as string);
+
+        if (!route.validations) {
+            route.validations = toStore;
+        } else {
+            toStore.forEach(validation => route.validations?.push(validation));
+        }
     };
 }

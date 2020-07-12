@@ -1,10 +1,11 @@
 import 'reflect-metadata';
 import { TestEndpoint } from './test.endpoint';
 import express, { Application } from 'express';
-import { createEndpoint, createDocsFor, getCssContent, getJsScriptContent } from './express-decorators/creation';
+// import { createEndpoint, createDocsFor, getCssContent, getJsScriptContent } from './express-decorators/creation';
 import * as fs from 'fs';
 import { promisify } from 'util';
 import { GreetingEndpoint } from './greeting.endpoint';
+import { createEndpoint } from './express-decorators/creation';
 
 const writeFileAsync = promisify(fs.writeFile);
 
@@ -21,7 +22,7 @@ const createDocHtml = (endpoints: any[]): string => {
         '<main>'
     ];
 
-    endpoints.forEach(t => doc.push(createDocsFor(t)));
+    // endpoints.forEach(t => doc.push(createDocsFor(t)));
 
     doc.push('</main>', '<script src="./script.js"></script>', '</body>', '</html>');
     return doc.join('\n');
@@ -39,9 +40,9 @@ const main = async () => {
     endpoints.forEach(t => createEndpoint(t, app));
     const doc: string = createDocHtml(endpoints);
 
-    await writeFileAsync(`${__dirname}\\..\\public\\v2.html`, doc);
-    await writeFileAsync(`${__dirname}\\..\\public\\style.css`, getCssContent());
-    await writeFileAsync(`${__dirname}\\..\\public\\script.js`, getJsScriptContent());
+    // await writeFileAsync(`${__dirname}\\..\\public\\v2.html`, doc);
+    // await writeFileAsync(`${__dirname}\\..\\public\\style.css`, getCssContent());
+    // await writeFileAsync(`${__dirname}\\..\\public\\script.js`, getJsScriptContent());
 
     app.get('/', (req, res) => {
         res.status(200).send('Welcome!');

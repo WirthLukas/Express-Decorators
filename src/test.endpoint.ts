@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { query } from "express-validator";
 import { Endpoint, Get, Validate, InjectRouter, Post, Middleware, EndpointDescription } from "./express-decorators/decorators";
 import { Ok } from "./express-decorators/models";
+import { Params, Query } from './express-decorators/decorators/paramters';
 
 @Endpoint('test')
 @EndpointDescription('just for testing')
@@ -36,9 +37,9 @@ export class TestEndpoint {
     @Get('/limited')
     @Validate(query('limit', 'no limit defined').isNumeric())
     @Validate(query('pos', 'need a position').isNumeric())
-    getLimited(req: Request, res: Response) {
+    getLimited( @Query('limit') limit: any) {
         const result: number[] = [];
-        const limit = parseInt(req.query.limit as string);
+        limit = parseInt(limit);
 
         for (let i = 0; i < limit; i++ )
             result.push(Math.random() * 1000);
@@ -46,14 +47,20 @@ export class TestEndpoint {
         return Ok({ result: result });
     }
 
+    @Get('/return')
+    returner(req: Request) {
+        return Ok(req.headers);
+    }
+
     @Get('/:id')
-    async getById(req: Request, res: Response) {
+    async getById( @Params('id') id: string) {
         // throw new Error('oh no, an exception');
+        console.log(id);
         return Ok("1");
     }
 
     @Post('/')
-    add(req: Request, res: Response) {
+    add(req: Request) {
         return Ok(req.body);
     }
 }
