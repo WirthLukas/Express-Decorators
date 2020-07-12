@@ -10,6 +10,10 @@ const getOrCreateParameterConfigs = (target: Object, methodName: string): Parame
     return endpointMeta.params[methodName];
 }
 
+/**
+ * Express req.body object or single body param, if body param name was specified
+ * @param name 
+ */
 export const Body = (name?: string): ParameterDecorator => {
     return (target: Object, key: string | symbol, index: number) => {
         const config: ParameterConfig[] = getOrCreateParameterConfigs(target, key as string);
@@ -17,6 +21,10 @@ export const Body = (name?: string): ParameterDecorator => {
     }
 }
 
+/**
+ * Express req.query object or single query param, if query param name was specified
+ * @param name 
+ */
 export const Query = (name?: string): ParameterDecorator => {
     return (target: Object, key: string | symbol, index: number) => {
         const config: ParameterConfig[] = getOrCreateParameterConfigs(target, key as string);
@@ -24,6 +32,10 @@ export const Query = (name?: string): ParameterDecorator => {
     }
 }
 
+/**
+ * Express req.params object or single param, if param name was specified
+ * @param name 
+ */
 export const Params = (name?: string): ParameterDecorator => {
     return (target: Object, key: string | symbol, index: number) => {
         const config: ParameterConfig[] = getOrCreateParameterConfigs(target, key as string);
@@ -31,6 +43,10 @@ export const Params = (name?: string): ParameterDecorator => {
     }
 }
 
+/**
+ * Express req.headers object or single headers param, if headers param name was specified
+ * @param name 
+ */
 export const Headers = (name?: string): ParameterDecorator => {
     return (target: Object, key: string | symbol, index: number) => {
         const config: ParameterConfig[] = getOrCreateParameterConfigs(target, key as string);
@@ -38,6 +54,10 @@ export const Headers = (name?: string): ParameterDecorator => {
     }
 }
 
+/**
+ * Express req.body object or single cookies param, if cookies param name was specified
+ * @param name 
+ */
 export const Cookies = (name?: string): ParameterDecorator => {
     return (target: Object, key: string | symbol, index: number) => {
         const config: ParameterConfig[] = getOrCreateParameterConfigs(target, key as string);

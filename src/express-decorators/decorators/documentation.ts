@@ -1,7 +1,9 @@
 import { getEndpointMeta, EndpointMeta, getOrCreateRouteAccess, RouteDefinition } from '../meta';
-export const rDescriptionKey = Symbol('routeDescriptionKey');
-export const eDescriptionKey = Symbol('endpointDescriptionKey');
 
+/**
+ * Creates a description for the given route
+ * @param text the description text
+ */
 export const RouteDescription = (text: string): MethodDecorator => {
     return (target: any, key: string | symbol, descriptor: PropertyDescriptor) => {
         const endpointMeta: EndpointMeta = getEndpointMeta(target.constructor);
@@ -10,6 +12,10 @@ export const RouteDescription = (text: string): MethodDecorator => {
     };
 }
 
+/**
+ * Creates a description for the given endpoint
+ * @param text the description text
+ */
 export const EndpointDescription = (text: string): ClassDecorator => {
     return (target: Function) => {
         const endpointMeta: EndpointMeta = getEndpointMeta(target);

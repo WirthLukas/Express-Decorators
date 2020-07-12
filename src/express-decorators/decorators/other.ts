@@ -4,6 +4,10 @@ import { EndpointMeta, getEndpointMeta, getOrCreateRouteAccess } from '../meta';
 
 export const injectRouterKey = Symbol('injectRouterKey');
 
+/**
+ * Defines a middleware for the given method
+ * @param middleware 
+ */
 export const Middleware = (middleware: RequestHandler): MethodDecorator => {
     return (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
         const endpointMeta: EndpointMeta = getEndpointMeta(target.constructor);
@@ -17,12 +21,19 @@ export const Middleware = (middleware: RequestHandler): MethodDecorator => {
     };
 }
 
+/**
+ * The Router Object of the endpoint will be assigned to this property
+ */
 export const InjectRouter = (): PropertyDecorator => {
     return (target: Object, key: string | symbol) => {
         Reflect.defineMetadata(injectRouterKey, key, target.constructor);
     };
 }
 
+/**
+ * Defines a validation chain for the given route
+ * @param validation 
+ */
 export const Validate = (validation: ValidationChain | ValidationChain[]): MethodDecorator => {
     return (target: Object, key: string | symbol, descriptor: PropertyDescriptor) => {
         const toStore = validation instanceof Array
