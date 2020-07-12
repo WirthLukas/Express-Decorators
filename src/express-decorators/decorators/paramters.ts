@@ -55,7 +55,7 @@ export const Headers = (name?: string): ParameterDecorator => {
 }
 
 /**
- * Express req.body object or single cookies param, if cookies param name was specified
+ * Express req.cookies object or single cookies param, if cookies param name was specified
  * @param name 
  */
 export const Cookies = (name?: string): ParameterDecorator => {

@@ -9,7 +9,9 @@
     "start": "node ./build/app.js"
   },
   "keywords": [
-    "express"
+    "express",
+    "decorators",
+    "typescript"
   ],
   "author": "Lukas Wirth",
   "license": "ISC",

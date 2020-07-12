@@ -1,8 +1,7 @@
 import { Router, Request, Response } from "express";
 import { query } from "express-validator";
-import { Endpoint, Get, Validate, InjectRouter, Post, Middleware, EndpointDescription } from "./express-decorators/decorators";
+import { Endpoint, Get, Validate, InjectRouter, Post, Middleware, EndpointDescription, RouteDescription, Params, Query, Headers } from "./express-decorators/decorators";
 import { Ok } from "./express-decorators/models";
-import { Params, Query } from './express-decorators/decorators/paramters';
 
 @Endpoint('test')
 @EndpointDescription('just for testing')
@@ -18,6 +17,7 @@ export class TestEndpoint {
         console.log('hey ho, a new middleware arived :D');
         next();
     })
+    @RouteDescription('Simple get route')
     getAll() {
         console.log(this.text);
         return Ok(this.text);
@@ -48,15 +48,15 @@ export class TestEndpoint {
     }
 
     @Get('/return')
-    returner(req: Request) {
-        return Ok(req.headers);
+    returner(@Headers() header: any) {
+        return Ok(header);
     }
 
     @Get('/:id')
     async getById( @Params('id') id: string) {
         // throw new Error('oh no, an exception');
         console.log(id);
-        return Ok("1");
+        return Ok("The id " + id);
     }
 
     @Post('/')
