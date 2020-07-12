@@ -1,30 +1,18 @@
+import { getEndpointMeta, EndpointMeta, getOrCreateRouteAccess, RouteDefinition } from '../meta';
 export const rDescriptionKey = Symbol('routeDescriptionKey');
 export const eDescriptionKey = Symbol('endpointDescriptionKey');
 
 export const RouteDescription = (text: string): MethodDecorator => {
     return (target: any, key: string | symbol, descriptor: PropertyDescriptor) => {
-        Reflect.defineMetadata(rDescriptionKey, text, target.constructor, key);
+        const endpointMeta: EndpointMeta = getEndpointMeta(target.constructor);
+        const route: RouteDefinition = getOrCreateRouteAccess(endpointMeta, key as string);
+        route.description = text;
     };
 }
 
 export const EndpointDescription = (text: string): ClassDecorator => {
     return (target: Function) => {
-        Reflect.defineMetadata(eDescriptionKey, text, target);
+        const endpointMeta: EndpointMeta = getEndpointMeta(target);
+        endpointMeta.description = text;
     }
-}
-
-export const getRouteDescriptionMetadata = (target: any, key: string |symbol): string => {
-    if (!Reflect.hasMetadata(rDescriptionKey, target, key)) {
-        return 'No description';
-    }
-
-    return Reflect.getMetadata(rDescriptionKey, target, key) as string;
-}
-
-export const getEndpointDescriptionMetadata = (target: any): string => {
-    if (!Reflect.hasMetadata(eDescriptionKey, target)) {
-        return 'No descritpion';
-    }
-
-    return Reflect.getMetadata(eDescriptionKey, target) as string;
 }

@@ -2,13 +2,14 @@ import { RequestHandler } from 'express';
 import { ValidationChain } from 'express-validator';
 
 export type Middleware = RequestHandler;
-export type HttpMethod = 'get' | 'post' | 'put' | 'delete'
+export type HttpMethod = 'get' | 'post' | 'put' | 'delete';
 
 export interface RouteDefinition {
     path: string;
     method: HttpMethod;
     middleware?: Middleware[];
     validations?: ValidationChain[];
+    description?: string;
 }
 
 export type RouteAccess = {
@@ -37,6 +38,7 @@ export interface EndpointMeta {
     path: string;
     routes: RouteAccess;
     params: ParameterAccess;
+    description?: string;
 }
 
 const endpointKey = Symbol('endpointKey');
