@@ -37,3 +37,10 @@ export const Headers = (name?: string): ParameterDecorator => {
         config.push({ index, type: ParameterType.Headers, name });
     }
 }
+
+export const Cookies = (name?: string): ParameterDecorator => {
+    return (target: Object, key: string | symbol, index: number) => {
+        const config: ParameterConfig[] = getOrCreateParameterConfigs(target, key as string);
+        config.push({ index, type: ParameterType.Cookies, name });
+    }
+}

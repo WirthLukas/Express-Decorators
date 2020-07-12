@@ -19,7 +19,8 @@ export const enum ParameterType {
     Params,
     Query,
     Body,
-    Headers
+    Headers,
+    Cookies
 }
 
 export interface ParameterConfig {

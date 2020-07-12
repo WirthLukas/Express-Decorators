@@ -65,6 +65,11 @@ const extractParameters = (req: Request, params: ParameterConfig[]): any[] => {
             case ParameterType.Headers:
                 args[index] = name ? req.headers[name] : req.headers;
                 break;
+            case ParameterType.Cookies:
+                args[index] = name ? req.cookies[name] : req.cookies;
+                break;
+            default:
+                throw new Error('Not supported Param Type');
         }
     }
 
