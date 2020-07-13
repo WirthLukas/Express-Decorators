@@ -15,6 +15,7 @@ export const Endpoint = (path: string, prefix: string | string[] = 'api') => {
         const finalPrefix: string = prefix instanceof Array ? prefix.join('/') : prefix;
         const endpointMeta: EndpointMeta = getEndpointMeta(target);
         endpointMeta.path = `/${finalPrefix}/${path}`;
+        endpointMeta.definitionFinished = true;
     }
 }
 

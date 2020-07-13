@@ -14,6 +14,10 @@ export const createEndpoint = (instance: any, app: Application) => {
 
 const initRoutes = (instance: any, router: Router) => {
     const endpointMeta: EndpointMeta = getEndpointMeta(instance.constructor);
+
+    if (!endpointMeta.definitionFinished)
+        throw new Error('Endpoint definition not finished! Maybe you forgot tho decorate the class with the @Endpoint decorator?');
+
     const routes: RouteAccess = endpointMeta.routes;
     
     Object.keys(endpointMeta.routes).forEach(methodName => {

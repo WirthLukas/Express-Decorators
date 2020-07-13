@@ -39,6 +39,7 @@ export interface EndpointMeta {
     routes: RouteAccess;
     params: ParameterAccess;
     description?: string;
+    definitionFinished: boolean;
 }
 
 const endpointKey = Symbol('endpointKey');
@@ -48,7 +49,8 @@ export const getEndpointMeta = (target: any): EndpointMeta => {
         const endpointMeta: EndpointMeta = {
             path: '',
             routes: {},
-            params: {}
+            params: {},
+            definitionFinished: false
         }
 
         Reflect.defineMetadata(endpointKey, endpointMeta, target);

@@ -7,7 +7,7 @@ export class GreetingEndpoint {
     @Get('/')
     @RouteDescription('Returns a polite greeting')
     get() {
-        return Ok('Hello my firend :D');
+        return Ok('Hello my friend :D');
     }
 
 }
