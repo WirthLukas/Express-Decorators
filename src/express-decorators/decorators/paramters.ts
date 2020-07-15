@@ -3,11 +3,13 @@ import { getEndpointMeta, ParameterType, ParameterConfig } from '../meta';
 const getOrCreateParameterConfigs = (target: Object, methodName: string): ParameterConfig[] => {
     const endpointMeta = getEndpointMeta(target.constructor);
 
-    if (!endpointMeta.params[methodName]) {
-        endpointMeta.params[methodName] = [];
-    }
+    // if (!endpointMeta.params[methodName]) {
+    //     endpointMeta.params[methodName] = [];
+    // }
 
-    return endpointMeta.params[methodName];
+    // return endpointMeta.params[methodName];
+
+    return endpointMeta.params[methodName] ?? (endpointMeta.params[methodName] = []);
 }
 
 /**

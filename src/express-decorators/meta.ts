@@ -59,13 +59,20 @@ export const getEndpointMeta = (target: any): EndpointMeta => {
     return Reflect.getMetadata(endpointKey, target) as EndpointMeta;
 }
 
-export const getOrCreateRouteAccess = (meta: EndpointMeta, methodName: string): RouteDefinition => {
-    if (!meta.routes[methodName]) {
-        meta.routes[methodName] = {
-            path: '',
-            method: 'get'
-        };
-    }
+// export const getOrCreateRouteAccess = (meta: EndpointMeta, methodName: string): RouteDefinition => {
+//     if (!meta.routes[methodName]) {
+//         meta.routes[methodName] = {
+//             path: '',
+//             method: 'get'
+//         };
+//     }
 
-    return meta.routes[methodName];
+//     return meta.routes[methodName];
+// }
+
+export const getOrCreateRouteAccess = (meta: EndpointMeta, methodName: string): RouteDefinition => {
+    return meta.routes[methodName] ?? (meta.routes[methodName] = {
+        path: '',
+        method: 'get'
+    });
 }
