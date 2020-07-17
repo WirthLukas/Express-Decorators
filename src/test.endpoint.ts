@@ -60,7 +60,8 @@ export class TestEndpoint {
     }
 
     @Post('/')
-    add(req: Request) {
+    add(req: Request, res: Response) {
+        res.setHeader('test-value', 'it works');
         return Ok(req.body);
     }
 }

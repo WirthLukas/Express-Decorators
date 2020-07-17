@@ -3,7 +3,9 @@ export const enum StatusCode {
     Created = 201,
     NoContent = 204,
     BadRequest = 400,
-    NotFound = 404
+    NotFound = 404,
+    InternalServerError = 500,
+    NotImplemented = 501
 }
 
 export class JsonResponse<T> {
@@ -18,4 +20,5 @@ export const Created = <T>(value: T) => new JsonResponse(StatusCode.Created, val
 export const NoContent = <T>(value: T) => new JsonResponse(StatusCode.NoContent, value);
 export const BadRequest = <T>(value: T) => new JsonResponse(StatusCode.BadRequest, value);
 export const NotFound = <T>(value: T) => new JsonResponse(StatusCode.NotFound, value);
-export const Failed = <T>(value: T) => new JsonResponse(500, value);
+export const InternalServerError = <T>(value: T) => new JsonResponse(StatusCode.InternalServerError, value);
+export const NotImplemented = <T>(value: T) => new JsonResponse(StatusCode.NotImplemented, value);

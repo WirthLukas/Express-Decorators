@@ -39,10 +39,12 @@ const initRoutes = (instance: any, router: Router) => {
                 .then(result => {
                     if (result instanceof JsonResponse) {
                         res.status(result.statusCode).send(result.value);
+                    } else {
+                        console.warn(`Can not handle return value of Method ${methodName} in ${instance.constructor.name}`);
                     }
                 })
                 .catch(err => {
-                    res.status(500).send({ msg: `something went wrong!`, err: err.toString() });
+                    res.status(StatusCode.InternalServerError).send({ msg: `something went wrong!`, err: err.toString() });
                 });
         });
     });
