@@ -5,7 +5,8 @@
         "node_modules",
         ".idea",
         "docs",
-        ".vscode"
+        ".vscode",
+        "dist"
     ],
     "exec": "npm run compile & npm run start"
 }

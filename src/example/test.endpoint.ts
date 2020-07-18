@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import { query } from "express-validator";
-import { Endpoint, Get, Validate, InjectRouter, Post, Middleware, EndpointDescription, RouteDescription, Params, Query, Headers } from "./express-decorators/decorators";
-import { Ok } from "./express-decorators/models";
+import { Endpoint, Get, Validate, InjectRouter, Post, Middleware, EndpointDescription, RouteDescription, Params, Query, Headers } from "../decorators";
+import { Ok } from "../models";
 
 @Endpoint('test')
 @EndpointDescription('just for testing')

@@ -1,12 +1,12 @@
 {
   "name": "express-decorators",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Decorators for express library",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc",
-    "start": "node ./build/app.js"
+    "start": "node ./dist/example/app.js"
   },
   "keywords": [
     "express",

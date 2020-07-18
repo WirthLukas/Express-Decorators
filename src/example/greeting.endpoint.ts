@@ -1,5 +1,5 @@
-import { Endpoint, Get, RouteDescription } from "./express-decorators/decorators";
-import { Ok } from './express-decorators/models';
+import { Endpoint, Get, RouteDescription } from "../decorators";
+import { Ok } from '../models';
 
 @Endpoint('greet')
 export class GreetingEndpoint {

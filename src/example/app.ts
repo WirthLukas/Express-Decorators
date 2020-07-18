@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import * as fs from 'fs';
 import { promisify } from 'util';
 import express, { Application } from 'express';
-import { createEndpoint, createDocsFor, getCssContent, getJsScriptContent } from './express-decorators/creation';
+import { createEndpoint, createDocsFor, getCssContent, getJsScriptContent } from '../creation';
 import { TestEndpoint } from './test.endpoint';
 import { GreetingEndpoint } from './greeting.endpoint';
 
@@ -44,9 +44,9 @@ const main = async () => {
 
     // create documentation html
     const doc: string = createDocHtml(endpoints);
-    await writeFileAsync(`${__dirname}\\..\\public\\v2.html`, doc);
-    await writeFileAsync(`${__dirname}\\..\\public\\style.css`, getCssContent());
-    await writeFileAsync(`${__dirname}\\..\\public\\script.js`, getJsScriptContent());
+    await writeFileAsync(`${__dirname}\\..\\..\\public\\v2.html`, doc);
+    await writeFileAsync(`${__dirname}\\..\\..\\public\\style.css`, getCssContent());
+    await writeFileAsync(`${__dirname}\\..\\..\\public\\script.js`, getJsScriptContent());
 
     // define a homepage
     app.get('/', (req, res) => {

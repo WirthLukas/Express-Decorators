@@ -137,7 +137,11 @@ app.listen(3030, () => {
 
 ## Resources
 
-This [article](https://nehalist.io/routing-with-typescript-decorators/) and this [repository](https://github.com/sjmeverett/express-decorators) helped me a lot to finish this project.
+Following links helped me a lot to finish this project.
+
+* https://nehalist.io/routing-with-typescript-decorators/
+* https://github.com/sjmeverett/express-decorators
+* https://github.com/serhiisol/node-decorators/tree/master/express
 
 ## Contribute
 
