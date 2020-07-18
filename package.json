@@ -1,8 +1,8 @@
 {
-  "name": "express-decorators",
-  "version": "0.1.0",
+  "name": "@nexos/express",
+  "version": "1.0.0",
   "description": "Decorators for express library",
-  "main": "app.js",
+  "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc",

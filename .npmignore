@@ -1,0 +1,6 @@
+src/
+dist/example
+public/
+.vscode/
+nodemon.json
+_config.yml
